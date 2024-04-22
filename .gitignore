@@ -1,0 +1,13 @@
+# Ignore the output directory
+output/
+
+# Ignore Python build and cache files
+__pycache__/
+*.pyc
+venv/
+
+# Ignore the experimentation directory
+experimentation/
+
+# Ignore all .csv files 
+*.csv
