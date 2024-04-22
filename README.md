@@ -12,8 +12,14 @@ intuitively [Documentation.ipynb](docs/Documentation.ipynb).
 
 ## Getting Started
 
-To get started with this job, simply clone this repository,  
-then execute on a unix terminal `./runbeam.sh` or `./runtests.sh` this will either create a virtual environment and install any dependencies 
+To get started with this job, simply clone this repository, mark the below files as executable  
+```
+chmod +x init.sh
+chmod +x runbeam.sh
+chmod +x runtests.sh
+```
+then execute on a unix terminal  
+`./runbeam.sh` or `./runtests.sh` this will either create a virtual environment and install any dependencies 
 or directly run the beam if all modules are present.  
 For Windows, you can trying using "wsl" and simply run the above scripts, else make sure you have python3 and have the necessary modules, can install via pip:  
 ```
