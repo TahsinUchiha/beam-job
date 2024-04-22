@@ -12,10 +12,10 @@ intuitively [Documentation.ipynb](docs/Documentation.ipynb).
 
 ## Getting Started
 
-To get started with this job, simply clone this repository,   
+To get started with this job, simply clone this repository,  
 then execute on a unix terminal `./runbeam.sh` or `./runtests.sh` this will either create a virtual environment and install any dependencies 
 or directly run the beam if all modules are present.  
-For Windows, make sure you have python3 and have the necessary modules, can install via pip:  
+For Windows, you can trying using "wsl" and simply run the above scripts, else make sure you have python3 and have the necessary modules, can install via pip:  
 ```
 pip install apache-beam[gcp]
 pip install requests 
