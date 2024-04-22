@@ -25,7 +25,7 @@ class TransactionProcessingTest(unittest.TestCase):
             assert_that(output, equal_to(expected_output))
             print('Single Test: ')
             print('Input: ', input_data)
-            print('Output: ', expected_output)
+            print('Expected Output: ', expected_output)
             
     # Show filtering for amount > 20 and year < 2010
     def test_filtered_transactions(self):
@@ -39,7 +39,7 @@ class TransactionProcessingTest(unittest.TestCase):
             assert_that(result, equal_to(expected_output))
             print('Filtered Transaction Test: ')
             print('Input: ', input_data)
-            print('Output: ', expected_output)
+            print('Expected Output: ', expected_output)
 
     # Show summations 
     def test_same_date_transactions(self):
@@ -55,8 +55,26 @@ class TransactionProcessingTest(unittest.TestCase):
             assert_that(result, equal_to(expected_output))
             print('Same data Test: ')
             print('Input: ', input_data)
-            print('Output: ', expected_output)
-            
+            print('Expected Output: ', expected_output)
+
+    # Duplicate transaction tests 
+    def test_duplicate_transactions(self):
+        with TestPipeline(runner='DirectRunner') as p:
+            input_data = [
+                '2017-03-18 14:09:16 UTC,wallet00001866cb7e0f09a890,wallet00001e494c12b3083634,2102.22',
+                '2017-03-18 14:09:16 UTC,wallet00001866cb7e0f09a890,wallet00001e494c12b3083634,2102.22',
+                '2017-03-18 14:09:16 UTC,wallet00001866cb7e0f09a890,wallet00001e494c12b3083634,2102.22',
+                '2017-03-18 14:10:44 UTC,wallet00001866cb7e0f09a890,wallet00000e719adfeaa64b5a,21.0'
+            ]
+            expected_output = [
+                ('2017-03-18', 2123.22)
+            ]
+            result = p | beam.Create(input_data) | TransactionProcessing()
+            assert_that(result, equal_to(expected_output))
+            print('Duuplicate data Test: ')
+            print('Input: ', input_data)
+            print('Expected Output: ', expected_output)
+
     # Entire transaction.csv process
     def test_process(self):
         with TestPipeline(runner='DirectRunner') as p:
@@ -77,6 +95,6 @@ class TransactionProcessingTest(unittest.TestCase):
             assert_that(result, equal_to(expected_output))
             print('Full sample Test data: ')
             print('Input: ', input_data)
-            print('Output: ', expected_output)
+            print('Expected Output: ', expected_output)
 if __name__ == '__main__':
     unittest.main()
