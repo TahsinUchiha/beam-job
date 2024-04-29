@@ -29,4 +29,4 @@ pip install requests
 Then run:  
 `python3 beam_pipeline_composite.py`  
 To run tests:  
-`python3 "tests/transaction_processing_test.py`
+`python3 tests/transaction_processing_test.py`
