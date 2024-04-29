@@ -1,6 +1,7 @@
 import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
 from transforms.transaction_processing import TransactionProcessing
+import json
 import requests
 import os
 
@@ -30,7 +31,8 @@ def run(argv=None):
             # | 'Read CSV' >> beam.io.ReadFromText('gs://cloud-samples-data/bigquery/sample-transactions/transactions.csv')
             | 'Read CSV' >> beam.Create(lines)
             | TransactionProcessing()
-            | 'Write JSONL' >> beam.io.WriteToText('output/results.jsonl.gz', header='date,total-amount', compression_type=beam.io.textio.CompressionTypes.GZIP,)
+            | 'Format as JSONL' >> beam.Map(lambda element: json.dumps({"date": element[0], "total-amount": element[1]}))
+            | 'Write JSONL' >> beam.io.WriteToText('output/results.jsonl.gz', compression_type=beam.io.textio.CompressionTypes.GZIP,)
         )
     os.rename('output/results.jsonl.gz-00000-of-00001', 'output/results.jsonl.gz')
 if __name__ == '__main__':
